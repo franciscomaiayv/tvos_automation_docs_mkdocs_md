@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>CEC Sniffer Library - TVOS Test Automation Tools</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "CEC Sniffer Library";
+    var mkdocs_page_input_path = "sniffer.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> TVOS Test Automation Tools</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../mediarouter/">MediaRouter Library</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../video_listener/">Video Signal Check</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">CEC Sniffer Library</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#cec-sniffer-libray">CEC Sniffer Libray</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#class-cecsniffer">class CecSniffer:</a></li>
+        
+            <li><a class="toctree-l3" href="#initself-hostname">init(self, hostname)</a></li>
+        
+            <li><a class="toctree-l3" href="#begin_listenselfcec_bus_listenercec_bus_listener_keepalivecec_sniffer_killedcec_sniffer_started">begin_listen(self,cec_bus_listener,cec_bus_listener_keepalive,cec_sniffer_killed,cec_sniffer_started):</a></li>
+        
+            <li><a class="toctree-l3" href="#sync_messages_localself">sync_messages_local(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#send_messageself-message">send_message(self, message)</a></li>
+        
+            <li><a class="toctree-l3" href="#wait_for_nextself">wait_for_next(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#wait_for_next_rxself-message">wait_for_next_rx(self, message)</a></li>
+        
+            <li><a class="toctree-l3" href="#beta_interpreterself-block">beta_interpreter(self, block)</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#tests-sample">Tests (Sample)</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#async-sample">Async Sample</a></li>
+        
+            <li><a class="toctree-l3" href="#syncblocking-example">Sync/Blocking Example</a></li>
+        
+            <li><a class="toctree-l3" href="#sync-sample-no-rx-expectance">Sync Sample No RX Expectance</a></li>
+        
+            <li><a class="toctree-l3" href="#full-test-implementation-sample">Full Test Implementation Sample</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">TVOS Test Automation Tools</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>CEC Sniffer Library</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="cec-sniffer-libray">CEC Sniffer Libray</h1>
+<p>This module will connect to a kwikwai device using its web api.</p>
+<p>kwikwai constanyl writes new blocks in order and thus we can query
+the upcoming block, whicever is the new block we consider it to be new.</p>
+<p>This module works in an async and a sync way, yes kinda like node js :)</p>
+<h2 id="class-cecsniffer">class CecSniffer:</h2>
+<p>Parameters</p>
+<p>hostname : string
+    the URL of the kwikwai device, aboid ntebios
+    and bonjour  on unix</p>
+<p>Attributes</p>
+<p>current_last_message : string
+    the current buffer we query (new block appears here)
+messages : obj
+    messages inside each block
+token : int
+    random int from kiwkwai, used as auth token
+hostname</p>
+<h2 id="initself-hostname"><strong>init</strong>(self, hostname)</h2>
+<p>Parameters</p>
+<p>hostname : string
+    the URL of the kwikwai device, avoid ntebios
+    and bonjour  on unix</p>
+<p>Returns</p>
+<p>none
+    constructs :o</p>
+<h2 id="begin_listenselfcec_bus_listenercec_bus_listener_keepalivecec_sniffer_killedcec_sniffer_started">begin_listen(self,cec_bus_listener,cec_bus_listener_keepalive,cec_sniffer_killed,cec_sniffer_started):</h2>
+<p>Parameters</p>
+<p>cec_bus_listener : callback
+    for ASYNC, will be called on new message
+cec_bus_listener_keepalive : callback
+    for ASYNC will be called to avoid test forever
+cec_sniffer_killed : callback
+    for AYNC, to be called when listener killed gracefully
+cec_sniffer_started : callback
+    for ASYNC, to be called on new listener</p>
+<p>Returns</p>
+<p>class
+    the constructed class</p>
+<h2 id="sync_messages_localself">sync_messages_local(self)</h2>
+<p>This is the secret sauce, this should be called on each
+module start as this will check all the previous blocks
+of data in the kwikwai buffer and import them into a
+local variable. this is so we can keep checking for
+new blocks and use our local blocks to compare any new ones
+that appear in kwikwais memory
+Returns</p>
+<p>json
+no return</p>
+<h2 id="send_messageself-message">send_message(self, message)</h2>
+<p>sends a message through a POST.
+we also sniff the token to include
+in this post
+  Parameters</p>
+<p>message : string
+      the message to seng
+  Returns</p>
+<p>true
+      return true, for non blocking</p>
+<h2 id="wait_for_nextself">wait_for_next(self)</h2>
+<p>link for the non persistant_query
+Returns</p>
+<p>block (json)
+will return the messsage</p>
+<h2 id="wait_for_next_rxself-message">wait_for_next_rx(self, message)</h2>
+<p>link for the non persistant_query but will
+also send a message. will raise rx flag
+Parameters</p>
+<p>message : json
+message to send to kwikwai</p>
+<p>Returns</p>
+<p>json
+Description of returned object.</p>
+<h2 id="beta_interpreterself-block">beta_interpreter(self, block)</h2>
+<p>will attempt to convert a recieved message into json
+Parameters</p>
+<p>block : json
+block of recieved data from kwikwai</p>
+<p>Returns</p>
+<p>json
+obj with interpreted messages from kwikwai,
+format is set below</p>
+<h1 id="tests-sample">Tests (Sample)</h1>
+<h2 id="async-sample">Async Sample</h2>
+<pre><code>def CEC_bus_listener_keepalive(last_block_index):
+    print(&quot;~ Quering CEC bus for blocks after -&gt; &quot; + str(last_block_index))
+
+def CEC_bus_listener(block):
+    print(block)
+    CEC_block_interpreter(block)
+
+def CEC_sniffer_killed():
+        print(&quot;~ Trying blocking argument, synchronous waiting for next...&quot;)
+        print(sniffer.wait_for_next())
+
+def CEC_sniffer_started():
+    print(&quot;~ Persistant Listener Started&quot;)
+
+def CEC_block_interpreter(block):
+    for message in block[&quot;messages&quot;]:
+        readeable_hex = []
+        for block in message[&quot;blocks&quot;]:
+            if(len(str(hex(int(block))))&lt;6):
+                readeable_hex.append(&quot;00&quot;)
+            else:
+                readeable_hex.append(str(hex(int(block)))[2:-2])
+        print(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;)
+        print(&quot;Message (human readeable not correct)-&gt;
+        &quot; + &quot;:&quot;.join(readeable_hex))
+        sent_or_not = &quot;TX&quot;
+        if(message[&quot;sent&quot;]==False):
+            sent_or_not = &quot;RX&quot;
+        print(&quot;RX/TX                                -&gt; &quot; + sent_or_not)
+        print(&quot;Bus                                  -&gt; &quot; + message[&quot;bus&quot;])
+
+print(&quot;~ Syncing previous sniffed blocks...wait...&quot;)
+sniffer = CEC_Sniffer(&quot;http://172.20.44.138&quot;)
+#no NetBIOS or Bonjour on linux :(
+sniffer.sync_messages_local()
+sniffer.begin_listen(CEC_bus_listener,
+CEC_bus_listener_keepalive,
+CEC_sniffer_killed, CEC_sniffer_started)
+</code></pre>
+
+<h2 id="syncblocking-example">Sync/Blocking Example</h2>
+<pre><code>def set_up_interface(hostname):
+    try:
+        sniffer = CEC_Sniffer(hostname) #no NetBIOS or Bonjour on linux :(
+        logger.debug(&quot;[cec-sniffer] Percussively inspecting CEC bus buffer...&quot;)
+        sniffer.sync_messages_local()
+        logger.debug(&quot;[cec-sniffer] Buffer synced!&quot;)
+        return sniffer
+    except:
+        fail(&quot;CEC Interface Error&quot;)
+
+cec_listener = set_up_interface(hostname)
+for message in cec_listener.wait_for_next_rx(&quot;2F:85:20:00&quot;):
+    message_parsed = cec_listener.beta_interpreter(message)
+    print(message_parsed)
+</code></pre>
+
+<h2 id="sync-sample-no-rx-expectance">Sync Sample No RX Expectance</h2>
+<pre><code>def set_up_interface(hostname):
+    try:
+        sniffer = CEC_Sniffer(hostname) #no NetBIOS or Bonjour on linux :(
+        logger.debug(&quot;[cec-sniffer] Percussively inspecting CEC bus buffer...&quot;)
+        sniffer.sync_messages_local()
+        logger.debug(&quot;[cec-sniffer] Buffer synced!&quot;)
+        return sniffer
+    except:
+        fail(&quot;CEC Interface Error&quot;)
+cec_listener.send_message(&quot;2F:85:20:00&quot;)
+cec_listener = set_up_interface(hostname)
+for message in cec_listener.wait_for_next():
+    message_parsed = cec_listener.beta_interpreter(message)
+    print(message_parsed)
+
+</code></pre>
+
+<h2 id="full-test-implementation-sample">Full Test Implementation Sample</h2>
+<pre><code>from tvos.cec_sniffer import CecSniffer
+#Must include
+import logging
+import matplotlib
+matplotlib.use('agg')
+import matplotlib.pyplot as plt
+import common
+from testcases import attr
+from utils.testing import fail, given, then, when
+
+@attr(trid=&quot;C497220&quot;)
+
+def set_up_interface(hostname):
+    try:
+        sniffer = CecSniffer(hostname) #no NetBIOS or Bonjour on linux :(
+        logger.debug(&quot;[cec-sniffer] Percussively inspecting CEC bus buffer...&quot;)
+        sniffer.sync_messages_local()
+        logger.debug(&quot;[cec-sniffer] Buffer synced!&quot;)
+        return sniffer
+    except:
+        fail(&quot;CEC Interface Error&quot;)
+
+def cec_test(hostname=&quot;http://172.20.44.138&quot;):
+    cec_listener = set_up_interface(hostname)
+    with given(&quot;&quot;&quot; The STB is connected through HDMI to a device that displays and decodes CEC messages exchanged between devices on the HDMI bus:
+        Ref: https://wiki.youview.co.uk/display/canvas/Using+the+Kwikwai+device+to+inspect+HDMI+CEC+messages
+        Note: Please ensure HDMI 1 on the TV is used during setup.
+
+        AND the STB is the HDMI Active source
+        To check that STB hdmi-cec-state is &quot;Active&quot;, send an HDMI CEC &lt;Request Active Source&gt; message on the CEC device e.g 2F:85:20:00 and the STB should respond by broadcasting an HDMI CEC &lt;Active Source&gt; message 3F:82:10:00 &quot;&quot;&quot;):
+
+
+        sent_message = False
+        recieved_message = False
+        for message in cec_listener.wait_for_next_rx(&quot;2F:85:20:00&quot;):
+            message_parsed = cec_listener.beta_interpreter(message)
+            print(message_parsed)
+            try:
+                if message_parsed[&quot;direction&quot;] == &quot;TX&quot; and message_parsed[&quot;message&quot;] == &quot;2f:85:20:00&quot;:
+                    sent_message = True
+
+                if message_parsed[&quot;direction&quot;] == &quot;RX&quot; and message_parsed[&quot;message&quot;].split(&quot;:&quot;)[1] == &quot;82&quot;:
+                    recieved_message = True
+            except Exception as e:
+                fail('Error decoding messages')
+        preconditions_output = {
+            &quot;sent_message&quot; : sent_message,
+            &quot;recieved_message&quot; : recieved_message
+        }
+        print(preconditions_output)
+        if not (sent_message and recieved_message):
+            #raise common.InvalidTest('Could not check STB is the HDMI active source, probably because we have a splitter inline')
+            logger.debug('Could not check STB is the HDMI active source, probably because we have a splitter inline')
+            #fail(&quot;Could not check STB is the HDMI active source&quot;)
+
+    with when(&quot;&quot;&quot; I send an HDMI CEC &quot;Request Active Source&quot; message on the CEC device: &quot;&quot;&quot;):
+        print(&quot;Testing beta feature&quot;)
+
+    with then(&quot;&quot;&quot;  The STB will broadcast an HDMI CEC &quot;Active Source (82)&quot; message &quot;&quot;&quot;):
+        sent_message = False
+        recieved_message = False
+        for message in cec_listener.wait_for_next_rx(&quot;4F:85:30:00&quot;):
+            message_parsed = cec_listener.beta_interpreter(message)
+            print(message_parsed)
+            try:
+                if message_parsed[&quot;direction&quot;] == &quot;TX&quot; and message_parsed[&quot;message&quot;] == &quot;4f:85:30:00&quot;:
+                    sent_message = True
+
+                if message_parsed[&quot;direction&quot;] == &quot;RX&quot; and message_parsed[&quot;message&quot;].split(&quot;:&quot;)[1] == &quot;82&quot;: #We can simply check the message ID from the 2nd block and return the correct request &quot;Active Source&quot; (Brodcast).
+                    recieved_message = True
+            except:
+                fail(&quot;Failed on awaiting Active Source (82), check combined log&quot;)
+        if not (sent_message and recieved_message):
+            preconditions_output = {
+                &quot;sent_message&quot; : sent_message,
+                &quot;recieved_message&quot; : recieved_message
+            }
+            logger.debug(preconditions_output)
+            fail(&quot;Failed on awaiting Active Source (82), check combined log&quot;)
+
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../video_listener/" class="btn btn-neutral" title="Video Signal Check"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../video_listener/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

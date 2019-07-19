@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>MediaRouter Library - TVOS Test Automation Tools</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "MediaRouter Library";
+    var mkdocs_page_input_path = "mediarouter.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> TVOS Test Automation Tools</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">MediaRouter Library</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#media-router-yv">Media Router YV</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#start_daemon">start_daemon()</a></li>
+        
+            <li><a class="toctree-l3" href="#kill_daemon">kill_daemon():</a></li>
+        
+            <li><a class="toctree-l3" href="#get_media_factory_address">get_media_factory_address()</a></li>
+        
+            <li><a class="toctree-l3" href="#deactivate_tuner">deactivate_tuner()</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#mediaroutererrorsenum">MediaRouterErrors(Enum)</a></li>
+    
+
+    <li class="toctree-l2"><a href="#class-mediarouter">class MediaRouter</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#mediarouterinit">MediaRouter.init()</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterget_mrself">MediaRouter.get_mr(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterrecycleself">MediaRouter.recycle(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterstartself">MediaRouter.start(self):</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterset_sinkself-string">MediaRouter.set_sink(self, string):</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterstopself">MediaRouter.stop(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterset_source_and_playself-uri">MediaRouter.set_source_and_play(self, uri)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterget_sourceself">MediaRouter.get_source(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterget_playspeedself">MediaRouter.get_playspeed(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediaroutercall_custom_methodself-method-args">MediaRouter.call_custom_method(self, method, *args)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterset_sourceself-uri">MediaRouter.set_source(self, uri)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterset_source_with_intself-uri-integer">MediaRouter.set_source_with_int(self, uri, integer)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterseek_positionself-arg">MediaRouter.seek_position(self, arg)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterget_buffer_statusself">MediaRouter.get_buffer_status(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterget_positionself">MediaRouter.get_position(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterstart_bufferingself">MediaRouter.start_buffering(self)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediarouterset_media_durationself-arg">MediaRouter.set_media_duration(self, arg)</a></li>
+        
+            <li><a class="toctree-l3" href="#mediaroutercleanupself">MediaRouter.cleanup(self)</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#tests-example">Tests Example</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#test-1">Test #1</a></li>
+        
+            <li><a class="toctree-l3" href="#test-2">Test #2</a></li>
+        
+            <li><a class="toctree-l3" href="#test-3">Test #3</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../video_listener/">Video Signal Check</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../sniffer/">CEC Sniffer Library</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">TVOS Test Automation Tools</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>MediaRouter Library</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="media-router-yv">Media Router YV</h1>
+<p>Aforementioned is the official documentation for TVOS automation with the MediaRouter.</p>
+<p>Meant to be a concise representation of all the available methods available.</p>
+<h2 id="start_daemon">start_daemon()</h2>
+<p>Starting the dbusdaemon.</p>
+<p>As mentioned above, this is necessary for out MR object to be store
+and not recycled.</p>
+<pre><code>dbussenddaemon &amp;
+</code></pre>
+
+<h2 id="kill_daemon">kill_daemon():</h2>
+<p>Kills daemon.</p>
+<p>Send a dbus-message to the void send method. this does not care
+about any of the ssh output</p>
+<pre><code>killall dbussenddaemon
+</code></pre>
+
+<h2 id="get_media_factory_address">get_media_factory_address()</h2>
+<p>Gets the MR address</p>
+<p>this sends a message through the dbus and returns the generated MR
+address. this will also be stored in the dbus daemon.</p>
+<p>Returns:</p>
+<pre><code>    string: generated MR address -&gt; 'Zinc/Media/MediaRouters/X'
+</code></pre>
+
+<p>Same as executing in UNIX:</p>
+<pre><code>dbus-send --session --print-reply --dest='Zinc.DBusSendDaemon' \
+/Zinc/Media/MediaRouterFactory \
+Zinc.Media.MediaRouterFactory.createMediaRouter string:Zinc.Media \
+string:&quot;Zinc/Media/MediaRouters/ \
+
+</code></pre>
+
+<h2 id="deactivate_tuner">deactivate_tuner()</h2>
+<p>Deactivate tuner</p>
+<p>Sends a dbus message that soft deactivates the inboard DTT tuner.</p>
+<p>Returns:</p>
+<pre><code>    string: the output of the dbus send command, might throw error
+    but it must be caught by the automation script
+</code></pre>
+
+<h1 id="mediaroutererrorsenum">MediaRouterErrors(Enum)</h1>
+<p>This is a class that lists known errors, extremely useful for creating human readable
+test. You can add new errors in this format:</p>
+<pre><code>MediaRouterErrors.InvalidLocator = &quot;Zinc.Media.Error.InvalidLocator&quot;
+</code></pre>
+
+<p>A example usage for this is as such:</p>
+<pre><code class="python">with then(&quot;&quot;&quot; I call MediaRouter.setSink() and THEN MediaRouter.setSink()
+returns an error:&quot;Zinc.Media.Error.IllegalReconfiguration&quot;  &quot;&quot;&quot;):
+
+    if not MR.set_sink(&quot;string:decoder://0&quot;) == MediaRouterErrors.IllegalReconfiguration:
+        fail(&quot;Zinc.Media.Error.IllegalReconfiguration not returned&quot;)
+
+</code></pre>
+
+<h1 id="class-mediarouter">class MediaRouter</h1>
+<p>Media router class for TVOS automation.</p>
+<p>Can be initialised from a test. all sorts of interfaces are available.
+We can generate, and modify a media router on demand.</p>
+<p><em>please note that we will often abbreviate Media router as MR.</em></p>
+<h2 id="mediarouterinit">MediaRouter.<strong>init</strong>()</h2>
+<p>Construsctor for the MediaRouter class
+A bit longer description.</p>
+<p>We start a deamon. this daemon will store our new
+MR adress. dbus tends to recycle any generated object.
+So for us to store the reference to out generated MR we
+must start this dbus daemon.</p>
+<p><em>We also store the MR address locally.</em></p>
+<h2 id="mediarouterget_mrself">MediaRouter.get_mr(self)</h2>
+<p>Returns the MR address <strong>in use</strong></p>
+<p>Returns:</p>
+<pre><code>    string: generated MR address -&gt; 'Zinc/Media/MediaRouters/X'
+</code></pre>
+
+<h2 id="mediarouterrecycleself">MediaRouter.recycle(self)</h2>
+<p>This will send a dbus command with the current MR and request a recycle.
+we might timeout but this error must be handled by the automation
+script.</p>
+<pre><code>Args:
+    variable (type): description
+
+Returns:
+    str(stdout): the output of the dbus send command.
+</code></pre>
+
+<p>Same as executing:</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.recycle
+</code></pre>
+
+<h2 id="mediarouterstartself">MediaRouter.start(self):</h2>
+<p>Sends a dbus message that starts the MR we generated</p>
+<pre><code>Returns:
+    string: the dbus send output. this can throw an error but it
+    must be caught by automation script
+</code></pre>
+
+<h2 id="mediarouterset_sinkself-string">MediaRouter.set_sink(self, string):</h2>
+<p>Sends a dbus message that sets the sink</p>
+<p>Can throw an error but it
+must be caught by automation script
+Args:
+    sink (string): MR sink variable
+Return:
+    classified error, as a MediaRouterErrors object.</p>
+<p>Same as executing:</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.setSink string:decoder://0
+</code></pre>
+
+<h3 id="mediarouterget_sinkself">MediaRouter.get_sink(self)</h3>
+<p>Returns the current sink set in the MR</p>
+<p>Can throw an error but it
+must be caught by automation script</p>
+<p>Returns:
+    string: dbus send response</p>
+<p>Same as executing:</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.getSink
+</code></pre>
+
+<h2 id="mediarouterstopself">MediaRouter.stop(self)</h2>
+<p>Sends a stop signal to the current MR</p>
+<p>Can throw an error but it
+must be caught by automation script</p>
+<p>Returns:
+    string: dbus response</p>
+<p>Same as executing:</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' '/Zinc/Media/MediaRouters/X' Zinc.Media.MediaRouter.start
+</code></pre>
+
+<h2 id="mediarouterset_source_and_playself-uri">MediaRouter.set_source_and_play(self, uri)</h2>
+<p>Set source and play</p>
+<p>Executes a compiled list of arguments that prepares a MR, sets a custom
+URI as its source and plays it.</p>
+<p>Args:
+    URI (string): a uri for the media we should play</p>
+<h2 id="mediarouterget_sourceself">MediaRouter.get_source(self)</h2>
+<p>Get source</p>
+<p>Sends a dbus message that will return the source of the current MR</p>
+<p>Returns:
+    source (string): uri for the current MR</p>
+<h2 id="mediarouterget_playspeedself">MediaRouter.get_playspeed(self)</h2>
+<p>Sends a dbus message that will return the play speed of the current MR</p>
+<p>Returns:
+    playSpeed (string): play speed for the current MR</p>
+<p>Same as executing:</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.getPlaySpeed
+</code></pre>
+
+<h2 id="mediaroutercall_custom_methodself-method-args">MediaRouter.call_custom_method(self, method, <em>*args</em>)</h2>
+<p>Call a custom method</p>
+<p>Sends a dbus message that will call on a methods specified</p>
+<p>Arguments can be trailed to that argument.</p>
+<p>Do note that arguments have to be "pre parsed" so:</p>
+<p>if you want to send,</p>
+<pre><code>string:'a/string/to/send' or int32:100
+</code></pre>
+
+<p>you must,</p>
+<pre><code class="python">call_custom_method(&quot;methodToCall&quot;, &quot;string:'a/string/to/send'&quot;,&quot;int32:100&quot;)
+</code></pre>
+
+<p>which will result in,</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.methodToCall string:'a/string/to/send' int32:100
+</code></pre>
+
+<p>Returns:
+    method response (string): method's response</p>
+<h2 id="mediarouterset_sourceself-uri">MediaRouter.set_source(self, uri)</h2>
+<p>Sets the source for the current MR. we can use this for overiding the
+current source too, although this will likely break the MR</p>
+<p>It will returned a classified error or a response string.</p>
+<p>Args:
+    URI (string): uri for the media we wish to set for the MR</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.setSource string:&quot;http://filegateway.youview.co.uk/test_assets/restricted/VA-237.mpg&quot; int32:0
+</code></pre>
+
+<h2 id="mediarouterset_source_with_intself-uri-integer">MediaRouter.set_source_with_int(self, uri, integer)</h2>
+<p>This will set the source for the current MR and append a int to the
+dbus arguments, this is useful for some tests that require this.</p>
+<p>Args:
+    uri (string): uri for the media to set this MR for</p>
+<pre><code>integer (string): additional argument for the dbus send
+</code></pre>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.setSource string:&quot;http://filegateway.youview.co.uk/test_assets/restricted/VA-237.mpg&quot; int32:0
+</code></pre>
+
+<h2 id="mediarouterseek_positionself-arg">MediaRouter.seek_position(self, arg)</h2>
+<p>Send a dbus message with a sink argument. this will call on the seek
+position method.</p>
+<p>It will returned a classified error or a response string.</p>
+<p>Args:
+    arg (string): seek arguments</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.seekPosition int32:1 int32:600000 int32:4
+</code></pre>
+
+<h2 id="mediarouterget_buffer_statusself">MediaRouter.get_buffer_status(self)</h2>
+<p>Sends a dbus message that will return the buffer status
+of the current MR.</p>
+<p>Returns:
+    buffer status (string): buffer status for the current MR</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.getBufferStatus
+</code></pre>
+
+<h2 id="mediarouterget_positionself">MediaRouter.get_position(self)</h2>
+<p>sends a dbus message that will return the position
+of the current MR</p>
+<p>Returns:
+    position (string): media position for the current MR</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.getPosition
+</code></pre>
+
+<h2 id="mediarouterstart_bufferingself">MediaRouter.start_buffering(self)</h2>
+<p>Sends a dbus message that will start the buffering
+of the current MR</p>
+<p>Returns:
+    buffer start buerring (string): buffering start response</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.startBuffering
+</code></pre>
+
+<h2 id="mediarouterset_media_durationself-arg">MediaRouter.set_media_duration(self, arg)</h2>
+<p>This will send a message through the dbus that sets a MR duration</p>
+<p>Args:
+    arg (string): a set of arguments to add onto them setMediaDuration
+    call</p>
+<pre><code>dbus-send --session --print-reply --type=method_call --dest='Zinc.Media' $MR Zinc.Media.MediaRouter.setMediaDuration int32:-1
+</code></pre>
+
+<h2 id="mediaroutercleanupself">MediaRouter.cleanup(self)</h2>
+<p>This will perform some internal methods that clean the generated MR.
+this is useful in between tests or on thrown errors.</p>
+<p>This does,</p>
+<pre><code>self.stop()
+self.recycle()
+</code></pre>
+
+<h1 id="tests-example">Tests Example</h1>
+<p>Here you will find two tests. Please Have a look through these. They were selected
+because they are great showcases of the capabilities of the MediaRouter library.</p>
+<p>These tests inlcude:</p>
+<pre><code class="python">import logging
+import time
+from utils.testing import (
+    fail,
+    given,
+    then,
+    when
+)
+from tvos.mediarouter import (
+    MediaRouter,
+    MediaRouterErrors
+)
+from nextgen.video_signal import (
+    wait_for_video,
+    wait_for_no_video
+)
+import recover
+logger = logging.getLogger(__name__)
+</code></pre>
+
+<h2 id="test-1">Test #1</h2>
+<pre><code class="python">@attr(trid=&quot;C496887&quot;, labels=(TL.YOUVIEW_SPECIFICATION_TESTS, TL.SSH))
+def run_test_recycle_active_mr():
+    try:
+        with given(&quot;&quot;&quot; Spec Paragraph/Functional Area:
+            MediaRouter Specification (1125-S) Version 1.3E, Section 4.5,
+            GIVEN STB is connected to an
+            display device through HDMI
+            AND I create a PDL MediaRouter and start it &quot;&quot;&quot;):
+            MR = MediaRouter()
+            MR.set_source_and_play(
+                &quot;http://filegateway.youview.co.uk/test_assets/licence_free/VA-503.ts&quot;
+            )
+            wait_for_video(20)
+            time.sleep(20)
+        with when(&quot;&quot;&quot; WHEN I call MediaRouter.recycle() &quot;&quot;&quot;):
+            MR.recycle()
+        with then(&quot;&quot;&quot; THEN the video output on the connected
+            display device will be blanked  &quot;&quot;&quot;):
+            wait_for_no_video(20)
+            MR.cleanup()
+    except:
+        MR.cleanup()
+
+</code></pre>
+
+<h2 id="test-2">Test #2</h2>
+<pre><code class="python">@attr(trid=&quot;C496887&quot;, labels=(TL.YOUVIEW_SPECIFICATION_TESTS, TL.SSH))
+def run_test_recycle_active_mr():
+    try:
+        with given(&quot;&quot;&quot; Spec Paragraph/Functional Area:
+            MediaRouter Specification (1125-S) Version 1.3E, Section 4.5,
+            GIVEN STB is connected to an
+            display device through HDMI
+            AND I create a PDL MediaRouter and start it &quot;&quot;&quot;):
+            MR = MediaRouter()
+            MR.set_source_and_play(
+                &quot;http://filegateway.youview.co.uk/test_assets/licence_free/VA-503.ts&quot;
+            )
+            wait_for_video(20)
+            time.sleep(20)
+        with when(&quot;&quot;&quot; WHEN I call MediaRouter.recycle() &quot;&quot;&quot;):
+            MR.recycle()
+        with then(&quot;&quot;&quot; THEN the video output on the connected
+            display device will be blanked  &quot;&quot;&quot;):
+            wait_for_no_video(20)
+            MR.cleanup()
+    except:
+        MR.cleanup()
+
+</code></pre>
+
+<h2 id="test-3">Test #3</h2>
+<p>Error detection is a big part of TVOS testing. In the following test we will showcase how
+we can detect a non included error.</p>
+<p>The test goes as follows:</p>
+<pre><code>@attr(trid=&quot;C496874&quot;, labels=(TL.YOUVIEW_SPECIFICATION_TESTS, TL.SSH))
+def run_test_invalid_enumeration():
+    with given(&quot;&quot;&quot; Spec Paragraph/Functional Area: MediaRouter Specification (1125-S) Version 1.3E, Annex A MediaRouter API, A.1.19,
+    I create a PDL MediaRouter: &quot;&quot;&quot;):
+        MR = MediaRouter()
+        MR.set_source(&quot;http://filegateway.youview.co.uk/test_assets/restricted/VA-237.mpg&quot;)
+        MR.set_sink(&quot;string:decoder://0&quot;)
+        pass
+    with then(&quot;&quot;&quot; THEN MediaRouter.seekPosition() with invalid arguments returns an error:&quot;Zinc.Media.Error.InvalidEnumeration&quot;  &quot;&quot;&quot;):
+        if not MR.seek_position(&quot;int32:1&quot;, &quot;int32:600000&quot;, &quot;int32:4&quot;) == MediaRouterErrors.InvalidEnumeration:
+            fail(&quot;No error returned&quot;)
+        pass
+    with when(&quot;&quot;&quot; AND I call MediaRouter.start()&quot;&quot;&quot;):
+        MR.start()
+        pass
+    with when(&quot;&quot;&quot; AND MediaRouter.seekPosition() with invalid arguments returns an error:&quot;Zinc.Media.Error.InvalidEnumeration&quot; &quot;&quot;&quot;):
+        if not MR.seek_position(&quot;int32:7&quot;, &quot;int32:600000&quot;, &quot;int32:1&quot;) == MediaRouterErrors.InvalidEnumeration:
+            fail(&quot;No error returned&quot;)
+        pass
+</code></pre>
+
+<p>The above test gets a dbus resoonse like this:</p>
+<pre><code>Error org.freedesktop.DBus.Error.InvalidArgs: Could not convert int-&gt;enum\c Invalid enum value
+</code></pre>
+
+<p>This error is not known, so we can listen to it as follows:</p>
+<pre><code>@attr(trid=&quot;C496874&quot;, labels=(TL.YOUVIEW_SPECIFICATION_TESTS, TL.SSH))
+def run_test_invalid_enumeration_force_error():
+    with given(&quot;&quot;&quot; Spec Paragraph/Functional Area: MediaRouter Specification (1125-S) Version 1.3E, Annex A MediaRouter API, A.1.19,
+    I create a PDL MediaRouter: &quot;&quot;&quot;):
+        MR = MediaRouter()
+        MR.set_source(&quot;http://filegateway.youview.co.uk/test_assets/restricted/VA-237.mpg&quot;)
+        MR.set_sink(&quot;string:decoder://0&quot;)
+        pass
+    with then(&quot;&quot;&quot; THEN MediaRouter.seekPosition() with invalid arguments returns an error:&quot;Zinc.Media.Error.InvalidEnumeration&quot;  &quot;&quot;&quot;):
+        if not &quot;org.freedesktop.DBus.Error.InvalidArgs&quot; in MR.seek_position(&quot;int32:1&quot;, &quot;int32:600000&quot;, &quot;int32:4&quot;):
+            fail(&quot;No error returned&quot;)
+        pass
+    with when(&quot;&quot;&quot; AND I call MediaRouter.start()&quot;&quot;&quot;):
+        MR.start()
+        pass
+    with when(&quot;&quot;&quot; AND MediaRouter.seekPosition() with invalid arguments returns an error:&quot;Zinc.Media.Error.InvalidEnumeration&quot; &quot;&quot;&quot;):
+        if not &quot;org.freedesktop.DBus.Error.InvalidArgs&quot; in MR.seek_position(&quot;int32:7&quot;, &quot;int32:600000&quot;, &quot;int32:1&quot;):
+            fail(&quot;No error returned&quot;)
+        pass
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../video_listener/" class="btn btn-neutral float-right" title="Video Signal Check">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="../video_listener/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

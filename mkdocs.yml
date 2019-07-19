@@ -1,0 +1,6 @@
+site_name: TVOS Test Automation Tools
+theme: readthedocs
+nav:
+  - MediaRouter Library: mediarouter.md
+  - Video Signal Check: video_listener.md
+  - CEC Sniffer Library : sniffer.md
